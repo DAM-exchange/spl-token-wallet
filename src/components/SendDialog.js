@@ -602,7 +602,7 @@ function useForm(
   };
 }
 
-function balanceAmountToUserAmount(balanceAmount, decimals) {
+export function balanceAmountToUserAmount(balanceAmount, decimals) {
   return (balanceAmount / Math.pow(10, decimals)).toFixed(decimals);
 }
 

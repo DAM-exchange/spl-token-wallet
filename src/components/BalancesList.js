@@ -35,6 +35,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import MergeType from '@material-ui/icons/MergeType';
 import SortIcon from '@material-ui/icons/Sort';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import AddTokenDialog from './AddTokenDialog';
 import ExportAccountDialog from './ExportAccountDialog';
 import SendDialog from './SendDialog';
@@ -55,6 +56,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import TokenIcon from './TokenIcon';
 import EditAccountNameDialog from './EditAccountNameDialog';
 import MergeAccountsDialog from './MergeAccountsDialog';
+import SwapWormholeDialog from './SwapWormholeDialog';
 
 const balanceFormat = new Intl.NumberFormat(undefined, {
   minimumFractionDigits: 4,
@@ -496,7 +498,8 @@ function BalanceListItemDetails({ publicKey, serumMarkets, balanceInfo }) {
   const [sendDialogOpen, setSendDialogOpen] = useState(false);
   const [depositDialogOpen, setDepositDialogOpen] = useState(false);
   const [tokenInfoDialogOpen, setTokenInfoDialogOpen] = useState(false);
-  const [exportAccDialogOpen, setExportAccDialogOpen] = useState(false);
+	const [exportAccDialogOpen, setExportAccDialogOpen] = useState(false);
+	const [swapWormholeDialogOpen, setSwapWormholeDialogOpen]	= useState(false);
   const [
     closeTokenAccountDialogOpen,
     setCloseTokenAccountDialogOpen,
@@ -645,7 +648,17 @@ function BalanceListItemDetails({ publicKey, serumMarkets, balanceInfo }) {
             onClick={() => setSendDialogOpen(true)}
           >
             Send
+      </Button>
+					{true && (
+          <Button
+            variant="outlined"
+            color="primary"
+            startIcon={<SwapHorizIcon />}
+            onClick={() => setSwapWormholeDialogOpen(true)}
+          >
+						Wormhole
           </Button>
+					)}
           {mint && amount === 0 ? (
             <Button
               variant="outlined"
@@ -684,7 +697,12 @@ function BalanceListItemDetails({ publicKey, serumMarkets, balanceInfo }) {
         onClose={() => setCloseTokenAccountDialogOpen(false)}
         balanceInfo={balanceInfo}
         publicKey={publicKey}
-      />
+			/>
+			<SwapWormholeDialog
+        open={swapWormholeDialogOpen}
+        onClose={() => setSwapWormholeDialogOpen(false)}
+        balanceInfo={balanceInfo}
+			/>
     </>
   );
 }
